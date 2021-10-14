@@ -1,0 +1,1 @@
+from stockanalysisgmm import gui
