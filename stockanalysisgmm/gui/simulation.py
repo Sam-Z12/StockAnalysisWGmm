@@ -1,3 +1,4 @@
+import time
 from PyQt5.QtCore import QThread, pyqtSignal
 from td.client import TDClient
 from csv import DictReader
@@ -109,7 +110,7 @@ class ExampleSim(QThread):
             
             #print("running_sim.....")
             if self.live == True:
-                self.sleep(1)
+                time.sleep(0.25)
                 self.sig.emit()
         self.sig.emit()
         

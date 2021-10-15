@@ -1,9 +1,10 @@
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import QRectF, Qt
 from PyQt5.QtGui import QColor
 
 import pyqtgraph as pg
+from pyqtgraph.functions import mkPen
 
 from .simulation import GmmSim, ExampleSim, STOCK_TICKER
 from .custom_widgets import  CandlestickItem, TimeAxisItem
@@ -39,9 +40,19 @@ class GSChartPage(QtWidgets.QFrame):
         self.pw.setLabel('left', 'Price', units="$")
         self.pw.setLabel('bottom', 'Time', units="t")
         self.pw.showGrid(x=False, y=True)
-        #self.pw.setAspectLocked()
+        self.pw.addLegend()
+
+        #Create plot legend
+        s1 = pg.PlotDataItem(pen=mkPen(color=ORANGE, width=5))
+        s2 = pg.PlotDataItem(pen=mkPen(color=YELLOW, width=5) )
+        s3 = pg.PlotDataItem(pen=mkPen(color=PURPLE, width=5) )
+        s4 = pg.PlotDataItem(pen=mkPen(color=BLUE, width=5) )
+        self.pw.plotItem.legend.addItem(s1,"High Overbought")
+        self.pw.plotItem.legend.addItem(s2,"Mid Overbought")
+        self.pw.plotItem.legend.addItem(s3,"Mid Oversold")
+        self.pw.plotItem.legend.addItem(s4,"Low Oversold")
         
-        
+        #Add plot to layout
         layout.addWidget(self.pw)
         
         
@@ -83,8 +94,8 @@ class GSChartPage(QtWidgets.QFrame):
         rect = self.item.viewRect()
         view_area = (rect.width() * rect.height())
         pen_width = view_area * PEN_WIDTH_VIEW_AREA_RATIO
-        if pen_width > 0.05:
-            pen_width = 0.05
+        if pen_width > 0.015:
+            pen_width = 0.015
         elif pen_width < 0.0015:
             pen_width = 0.0015
         #print(f"Update Pen: area: {view_area} Pen: {pen_width}")
