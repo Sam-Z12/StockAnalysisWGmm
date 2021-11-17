@@ -4,11 +4,13 @@ import numpy as np
 UNBOUND = 'unbound'
 RSI_PERIOD = 14
 SHORT_EMA_PERIOD = 12
-LONG_EMA_PERIOD = 26 
-MACD_PERIOD  = 9
+LONG_EMA_PERIOD = 26
+MACD_PERIOD = 9
+
 
 def scale_list(array_vals, upper_bound=100, lower_bound=0):
-    return np.interp(array_vals, (np.nanmin(array_vals), np.nanmax(array_vals)), (lower_bound,upper_bound) )
+    return np.interp(array_vals, (np.nanmin(array_vals), np.nanmax(array_vals)), (lower_bound, upper_bound))
+
 
 class IdicatorsPlugin:
     def __init__(self, active_indicatos: list,) -> None:
@@ -23,13 +25,13 @@ class IdicatorsPlugin:
         close = pd.DataFrame(self._p_close_prices())
         diff = close.diff()
         gains = diff.clip(lower=0)
-        losses = diff.clip(upper=0)
+        losses = -1 * diff.clip(upper=0)
         avg_gains = gains.rolling(period).mean()
         avg_losses = losses.rolling(period).mean()
         rs = avg_gains/avg_losses
         rsi = np.array(100 - (100/(1+rs)))
-        return scale_list(rsi.flatten())
-    
+        return rsi.flatten()
+
     def macd(self, short_ema_period=SHORT_EMA_PERIOD, long_ema_period=LONG_EMA_PERIOD, macd_period=MACD_PERIOD):
         close = pd.DataFrame(self._p_close_prices())
         short_ema = close.ewm(span=short_ema_period, adjust=False).mean()
@@ -43,4 +45,4 @@ class IdicatorsPlugin:
 # print([p for p in dir(ip) if not p.startswith("__") ])
 # print(ip.__getact__())
 # for p in (ip.__getact__()):
-#     ip.p()  
+#     ip.p()
