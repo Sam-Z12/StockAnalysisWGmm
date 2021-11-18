@@ -9,6 +9,7 @@ from stockanalysisgmm.config.config import CONSUMER_KEY, REDIRECT_URI, CREDENTIA
 
 
 STOCK_TICKER = 'AAPL'
+DEFAULT_TICKER = 'test_AAPL'
 
 
 def gen(n, start_num=0):
@@ -43,30 +44,37 @@ class GmmSim(QThread):
 
     sig = pyqtSignal()
 
-    def __init__(self, live=False):
+    def __init__(self, live=False, ticker :str=DEFAULT_TICKER):
         super().__init__()
         self.cans = []
         self.live = live
+        self.ticker = ticker
+        self.td_session = TDClient(client_id=CONSUMER_KEY,
+                                    redirect_uri=REDIRECT_URI,
+                                    credentials_path=CREDENTIALS_PATH,
+                                    account_number=ACCOUNT_NUMBER)
+        self.td_session.login()
 
     def init_model(self):
+        if self.ticker == 'test_AAPL':
+            with open("stockanalysisgmm/example_data/AAPL_data.csv", "r") as data:
+                csv_reader = DictReader(data)
+                price_history_candles = [c for c in csv_reader]
 
-        td_session = td_session = TDClient(client_id=CONSUMER_KEY,
-                                           redirect_uri=REDIRECT_URI,
-                                           credentials_path=CREDENTIALS_PATH,
-                                           account_number=ACCOUNT_NUMBER)
-        td_session.login()
-        price_history = td_session.get_price_history(symbol=STOCK_TICKER,
-                                                     period_type='year',
-                                                     period=3,
-                                                     frequency='1',
-                                                     frequency_type='daily')
-        price_history_candles = price_history['candles']
+        else:
+            price_history = self.td_session.get_price_history(symbol=self.ticker,
+                                                        period_type='year',
+                                                        period=3,
+                                                        frequency='1',
+                                                        frequency_type='daily')
+            price_history_candles = price_history['candles']
 
         candle_objs = [GmmCandle(c) for c in price_history_candles]
         gmm_candle_chart = GmmCandleChart(
             stock_ticker=STOCK_TICKER, candles=candle_objs)
         ip = IdicatorsPlugin(active_indicatos=['rsi', 'macd'])
         gmm_candle_chart.bind_plugin(ip)
+        print(f'Initiated model for {self.ticker}')
         return gmm_candle_chart.model_generator()
 
     def run(self):
@@ -79,7 +87,7 @@ class GmmSim(QThread):
 
             # print("running_sim.....")
             if self.live == True:
-                self.sleep(1)
+                time.sleep(0.15)
                 self.sig.emit()
         self.sig.emit()
 

@@ -9,7 +9,7 @@ import pyqtgraph as pg
 from pyqtgraph.functions import mkPen
 from pyqtgraph.graphicsItems.ROI import PolyLineROI
 
-from .simulation import GmmSim, ExampleSim, STOCK_TICKER
+from .simulation import GmmSim, ExampleSim, STOCK_TICKER, DEFAULT_TICKER
 from .custom_widgets import CandlestickItem, TimeAxisItem
 
 
@@ -36,7 +36,7 @@ class GSChartPage(QtWidgets.QFrame):
 
         # Add the chart to the page
         self.pw = pg.PlotWidget(name="A Plot", )
-        self.pw.setTitle(STOCK_TICKER)
+        self.pw.setTitle(DEFAULT_TICKER)
         self.date_axis = TimeAxisItem(orientation="bottom")
         self.pw.setAxisItems({'bottom': self.date_axis})
         self.pw.setBackground(BACKGROUND_COLOR)
@@ -68,11 +68,11 @@ class GSChartPage(QtWidgets.QFrame):
                                  "padding: 2px;")
 
         # Add plot to layout
-        layout.addWidget(self.frame)
+        layout.addWidget(self.frame, stretch=1)
         # layout.addWidget(self.frame)
 
         # Init the smulation
-        self.gmm_sim = ExampleSim(live=live)
+        self.gmm_sim = GmmSim(live=live)
 
         self.side_frame = QtWidgets.QFrame()
         self.side_frame.setMinimumHeight(500)
@@ -83,7 +83,7 @@ class GSChartPage(QtWidgets.QFrame):
         side_bar_layout = QtWidgets.QVBoxLayout()
         side_bar_layout.setContentsMargins(0, 0, 0, 0)
         self.side_frame.setLayout(side_bar_layout)
-        layout.addWidget(self.side_frame)
+        layout.addWidget(self.side_frame, stretch=0)
 
         # Create button to start simulation
         self.start_sim_button = QtWidgets.QPushButton("Start Simulation")
@@ -94,15 +94,31 @@ class GSChartPage(QtWidgets.QFrame):
             "border-style: inset;}"
             "*:hover{background-color: rgb(50,50,50);"
         )
-        self.start_sim_button.clicked.connect(self.p)
+        self.start_sim_button.clicked.connect(self.handle_sim_start)
         side_bar_layout.addWidget(self.start_sim_button)
+
+        #Create Stop button
+        self.stop_sim_button = QtWidgets.QPushButton("Stop Simulation")
+        self.stop_sim_button.setFixedHeight(50)
+        self.stop_sim_button.setStyleSheet(
+            f"background-color: {BACK_COLOR};"
+            "color: rgb(245,245,245);"
+            "border-style: inset;}"
+            "*:hover{background-color: rgb(50,50,50);"
+        )
+        self.stop_sim_button.clicked.connect(self.handle_stop)
+        side_bar_layout.addWidget(self.stop_sim_button)
+        
 
         # Create ticker label and input box
         inputs_layout = QtWidgets.QFormLayout()
         self.ticker_label = QtWidgets.QLabel("Ticker:")
         self.ticker_label.setStyleSheet("color: white;")
         self.ticker_input = QtWidgets.QLineEdit()
-        self.ticker_input.setStyleSheet("color: white;")
+        self.ticker_input.setStyleSheet("color: white;"
+                                        "border: 1px solid grey;"
+                                        "border-radius: 5px;")
+        self.ticker_input.setText(DEFAULT_TICKER)
         inputs_layout.addRow(self.ticker_label, self.ticker_input)
         side_bar_layout.addLayout(inputs_layout)
 
@@ -139,5 +155,18 @@ class GSChartPage(QtWidgets.QFrame):
         self.pw.clear()
         self.pw.addItem(self.item)
 
-    def p(self):
-        print(self.ticker_input.text())
+    def handle_sim_start(self):
+        tick = self.ticker_input.text()
+        self.pw.setTitle(tick)
+        #If cans are not reset to zero you can graph 2 charts on the same graphwidget
+        self.gmm_sim.cans = []
+        self.gmm_sim.ticker = tick
+        self.gmm_sim.start()
+
+    def handle_stop(self):
+        self.gmm_sim.terminate()
+        self.gmm_sim.cans = []
+
+
+
+    
