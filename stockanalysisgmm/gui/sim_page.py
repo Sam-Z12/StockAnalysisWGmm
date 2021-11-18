@@ -30,8 +30,8 @@ class GSChartPage(QtWidgets.QFrame):
         # Set style of the page
         self.setStyleSheet(f"Background-color: {BACK_COLOR}")
         layout = QtWidgets.QHBoxLayout()
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        layout.setContentsMargins(15, 15, 15, 15)
+        layout.setSpacing(15)
         self.setLayout(layout)
 
         # Add the chart to the page
@@ -55,17 +55,35 @@ class GSChartPage(QtWidgets.QFrame):
         self.pw.plotItem.legend.addItem(s2, "Mid Overbought")
         self.pw.plotItem.legend.addItem(s3, "Mid Oversold")
         self.pw.plotItem.legend.addItem(s4, "Low Oversold")
+        self.pw.setBackground(background=None)
+
+        self.frame = QtWidgets.QFrame()
+        self.frame_layout = QtWidgets.QHBoxLayout()
+        self.frame_layout.addWidget(self.pw)
+        self.frame.setLayout(self.frame_layout)
+
+        self.frame.setMinimumSize(500, 500)
+        self.frame.setStyleSheet("background-color: rgb(30,30,30);"
+                                 "border-radius: 10px;"
+                                 "padding: 2px;")
 
         # Add plot to layout
-        layout.addWidget(self.pw, 1)
+        layout.addWidget(self.frame)
+        # layout.addWidget(self.frame)
 
         # Init the smulation
         self.gmm_sim = ExampleSim(live=live)
 
+        self.side_frame = QtWidgets.QFrame()
+        self.side_frame.setMinimumHeight(500)
+        self.side_frame.setStyleSheet("background-color: rgb(30,30,30);"
+                                      "border-radius: 5px;"
+                                      "padding: 2px;")
+
         side_bar_layout = QtWidgets.QVBoxLayout()
         side_bar_layout.setContentsMargins(0, 0, 0, 0)
-        side_bar_layout.setSizeConstraint(QtWidgets.QLayout.SetFixedSize)
-        layout.addLayout(side_bar_layout, 0)
+        self.side_frame.setLayout(side_bar_layout)
+        layout.addWidget(self.side_frame)
 
         # Create button to start simulation
         self.start_sim_button = QtWidgets.QPushButton("Start Simulation")

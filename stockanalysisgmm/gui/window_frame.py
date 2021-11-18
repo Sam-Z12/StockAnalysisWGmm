@@ -1,10 +1,13 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
+from pathlib import Path
 
 WINDOW_SIZE = 0
 
 TITLE_BAR_COLOR = 'rgb(90, 90, 90)'
+GUI_IMAGES = str(Path(__file__).absolute().parent) + '/Gui_Images'
+print(GUI_IMAGES)
 
 
 class TitleBar(QtWidgets.QFrame):
@@ -31,8 +34,7 @@ class TitleBar(QtWidgets.QFrame):
             "*:hover{background-color: rgb(50,50,50);"
 
         )
-        self.min_btn.setIcon(QIcon(
-            r"C:\Users\Zands\PycharmProjects\AlgoTradingBot\Gui\Gui_Images\MinButton.png"))
+        self.min_btn.setIcon(QIcon(f"{GUI_IMAGES}/MinButton"))
         self.min_btn.setIconSize(QSize(35, 35))
         self.title_bar_layout.addWidget(self.min_btn)
         self.min_btn.setFixedSize(35, 35)
@@ -48,8 +50,7 @@ class TitleBar(QtWidgets.QFrame):
             "border-style: inset}"
             "*:hover{background-color: rgb(50,50,50);"
         )
-        self.max_btn.setIcon(QIcon(
-            r"C:\Users\Zands\PycharmProjects\AlgoTradingBot\Gui\Gui_Images\MaxButton2.png"))
+        self.max_btn.setIcon(QIcon(f"{GUI_IMAGES}/MaxButton2"))
         self.max_btn.setIconSize(QSize(35, 35))
         self.max_btn.setFixedSize(35, 35)
         self.title_bar_layout.addWidget(self.max_btn)
@@ -65,8 +66,7 @@ class TitleBar(QtWidgets.QFrame):
             "color: rgb(245,245,245);"
             "border-style: inset}"
             "*:hover{background-color: rgb(220,0,0);")
-        self.close_btn.setIcon(QIcon(
-            r"C:\Users\Zands\PycharmProjects\AlgoTradingBot\Gui\Gui_Images\CloseButton4.png"))
+        self.close_btn.setIcon(QIcon(f"{GUI_IMAGES}/CloseButton4"))
         self.close_btn.setIconSize(QSize(35, 35))
 
         self.title_bar_layout.addWidget(self.close_btn)
@@ -78,15 +78,13 @@ class TitleBar(QtWidgets.QFrame):
         self.parent.last_window_size = self.parent.geometry()
 
         if WINDOW_SIZE == 0:
-            self.max_btn.setIcon(QIcon(
-                r"C:\Users\Zands\PycharmProjects\AlgoTradingBot\Gui\Gui_Images\RestoreButton2.png"))
+            self.max_btn.setIcon(QIcon(f"{GUI_IMAGES}/RestoreButton2"))
             self.max_btn.setIconSize(QSize(35, 35))
             WINDOW_SIZE = 1
             self.parent.showMaximized()
 
         else:
-            self.max_btn.setIcon(QIcon(
-                r"C:\Users\Zands\PycharmProjects\AlgoTradingBot\Gui\Gui_Images\MaxButton2.png"))
+            self.max_btn.setIcon(QIcon(f"{GUI_IMAGES}/MaxButton2"))
             self.max_btn.setIconSize(QSize(35, 35))
             WINDOW_SIZE = 0
             self.parent.showNormal()
