@@ -14,5 +14,5 @@ ALPHA_VANTAGE_KEY = ''
 # Used to create a new Credentials path json file
 # json_obj = {}
 
-# with open ('credPath.json', 'w') as jsonFile:
+# with open (CREDENTIALS_PATH, 'w') as jsonFile:
 #     json.dump(json_obj, jsonFile)
