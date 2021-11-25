@@ -3,7 +3,8 @@ This project was built to test the plausubility of categorizing stock prices int
 
 
 To avoid having to sort through price histories or build a model to create a trianing dataset an unsupervized model was need, making gaussian models a good fit.    
-The SkLearn library was used for the gaussian mixture model with the RSI and MACD as the X training data. Labels are calculated from the same rsi and macd dataset used to train the model. 
+The SkLearn library was used for the gaussian mixture model with the RSI and MACD as the X training data. Labels are calculated from the same rsi and macd dataset 
+used to train the model. 
 
 
 To optimize the model a BIC value was calculated for models using 1 to 20 labels and 4 was choosen as the best number of labels. 
