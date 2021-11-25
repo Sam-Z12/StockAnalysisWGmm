@@ -3,7 +3,11 @@ Categorize stock prices into oversold and overbought ranges using gaussian mixtu
 
 
 
-https://user-images.githubusercontent.com/82553480/137428826-162f904a-9cd9-47ab-ba9a-dffa9cd840bb.mp4
+
+https://user-images.githubusercontent.com/82553480/143331980-89988136-f6f2-4d0b-92e3-7a747cb73575.mp4
+
+
+
 
 ![num_groups_vs_bic](https://user-images.githubusercontent.com/82553480/143329705-68752574-dc43-47c0-b38a-2fecbce5658b.png)
 
