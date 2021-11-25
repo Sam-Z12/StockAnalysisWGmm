@@ -11,7 +11,7 @@ To optimize the model a BIC value was calculated for models using 1 to 20 labels
 
 The rsi and macd were also plotted with the label catergories highlighted in different colors. It was found that there is no 
 clear boundaries for categorizing the data set. The chart also shows that there is a similar covarience between the macd and 
-the rsi so 'tied' was used as the covarience type. Even though there are no clear boundries to caterorize the data the model
+the rsi so 'tied' was used as the covarience type when training the model. Even though there are no clear boundries to caterorize the data the model
 was able to seperate the data to be used for cateroizing stock trends.
 ![Indicator_Groups](https://user-images.githubusercontent.com/82553480/143328869-cc6eda1b-0459-4484-8fb6-1077e075218f.png)
 
