@@ -17,7 +17,7 @@ the rsi so 'tied' was used as the covarience type when training the model. Even 
 was able to seperate the data how I wanted.
 ![Indicator_Groups](https://user-images.githubusercontent.com/82553480/143328869-cc6eda1b-0459-4484-8fb6-1077e075218f.png)
 
-Below is a video of the project being used. The project comes with and example data set "test_AAPL". To get data for more stocks access to the TD ameritrade api is required, just add you own API_KEY and ACCOUNT_NUMBER into the config file. After setting up the config file type any ticker into the input field in the ui and it will pull in data for that ticker.  
+Below is a video of the project being used. The project comes with and example data set "test_AAPL". To get data for more stocks access to the TD ameritrade api is required, just add you own CONSUMER_KEY and ACCOUNT_NUMBER into the config file. After setting up the config file type any ticker into the input field in the ui and it will pull in data for that ticker.  
 https://user-images.githubusercontent.com/82553480/143331980-89988136-f6f2-4d0b-92e3-7a747cb73575.mp4
 
 
