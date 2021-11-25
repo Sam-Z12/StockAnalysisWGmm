@@ -10,9 +10,9 @@ To optimize the model a BIC value was calculated for models using 1 to 20 labels
 
 
 The rsi and macd were also plotted with the label catergories highlighted in different colors. It was found that there is no 
-clear boundaries to categories the data set from. The chart also show that there is a similar covarience between the macd and 
+clear boundaries for categorizing the data set. The chart also shows that there is a similar covarience between the macd and 
 the rsi so 'tied' was used as the covarience type. Even though there are no clear boundries to caterorize the data the model
-was able to seperate the data to be used cateroized stock trend.
+was able to seperate the data to be used for cateroizing stock trends.
 ![Indicator_Groups](https://user-images.githubusercontent.com/82553480/143328869-cc6eda1b-0459-4484-8fb6-1077e075218f.png)
 
 Below is a video of the ui and how to run a test. The project come with and example data set "test_AAPL". To use live the access to the TD ameritrade api is required, just add you own API_KEY and ACCOUNT_NUMBER into the config file. After setting up the config file type any ticker into the input field in the ui it will pull in data for that ticker.  
