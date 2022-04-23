@@ -8,18 +8,17 @@ used to train the model.
 
 
 To optimize the model a BIC value was calculated for models using 1 to 20 labels and 4 was choosen as the best number of labels. 
-![num_groups_vs_bic](https://user-images.githubusercontent.com/82553480/143329705-68752574-dc43-47c0-b38a-2fecbce5658b.png)
+![num_groups_vs_bic](./imgs/num_groups_vs_bic.png)
 
 
 The rsi and macd were also plotted with the label catergories highlighted in different colors. It was found that there is no 
 clear boundaries for categorizing the data set. The chart also shows that there is a similar covarience between the macd and 
 the rsi so 'tied' was used as the covarience type when training the model. Even though there are no clear boundries to caterorize the data I thought the model
 was able to seperate the data how I wanted.
-![Indicator_Groups](https://user-images.githubusercontent.com/82553480/143328869-cc6eda1b-0459-4484-8fb6-1077e075218f.png)
+![Indicator_Groups](./imgs/Indicator_Groups.png)
 
 Below is a video of the project being used. The project comes with and example data set "test_AAPL". To get data for more stocks access to the TD ameritrade api is required, just add you own CONSUMER_KEY and ACCOUNT_NUMBER into the config file. After setting up the config file type any ticker into the input field in the ui and it will pull in data for that ticker.  
-https://user-images.githubusercontent.com/82553480/143331980-89988136-f6f2-4d0b-92e3-7a747cb73575.mp4
-
+![Indicator_Groups](./imgs/demo.mp4)
 
 
 
