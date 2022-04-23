@@ -19,7 +19,7 @@ was able to seperate the data how I wanted.
 
 Below is a video of the project being used. The project comes with and example data set "test_AAPL". To get data for more stocks access to the TD ameritrade api is required, just add you own CONSUMER_KEY and ACCOUNT_NUMBER into the config file. After setting up the config file type any ticker into the input field in the ui and it will pull in data for that ticker.  
 ![Indicator_Groups](./imgs/demo.mp4)
-
+demo.mp4
 
 
 
