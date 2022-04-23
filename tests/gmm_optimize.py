@@ -19,3 +19,4 @@ def optimize():
 
     gmm_candle_chart.optimum_groups(min=1, max=20)
     gmm_candle_chart.cluster_plot()
+    print("Charts have been saved in the tests folder.")

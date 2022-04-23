@@ -205,6 +205,8 @@ class GmmCandleChart(CandleChart):
 
             print(bic)
         fig, ax = plt.subplots()
+        plt.xlabel('Number of labels')
+        plt.ylabel('BIC')
         plt.plot(df['num_groups'], df['bic'])
         plt.savefig("num_groups_vs_bic.png",
                     format='png', dpi=150)
