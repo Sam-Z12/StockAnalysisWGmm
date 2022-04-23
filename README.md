@@ -1,4 +1,16 @@
 # StockAnalysisWGmm
+
+## Usage
+
+1. Add TD_Ameritrade CONSUMER_KEY and ACCOUNT_NUMBER to the stockanalysisgmm/config/config.py file.
+
+2. Start the application with CMD:
+> 
+    python3 run_example_sim.py
+
+3.  Enter any stock ticker into the Ticker text field.
+
+## Project Goal
 This project was built to test the plausubility of categorizing stock prices into oversold and overbought ranges using gaussian mixture models. A basic strategy to use with this model would be to buy a stock in the low oversold range and sell a stock in the high overbought range.
 
 
